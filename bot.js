@@ -18,9 +18,21 @@ bot.music.start(bot, {
 });
 
 // Events.
-bot.on("ready", function() {
-    bot.user.setActivity(`Hi, Im The Music Bot`);
-    console.log(`${bot.user.username} is Ready!`);
+bot.on('ready', () => {
+    bot.user.setPresence({ game: { name: `k!help | ${client.guilds.size}`, type: 0 } });
+    bot.user.setStatus('idle');
+});
+
+bot.on("guildCreate", guild => {
+  // This event triggers when the bot joins a guild.
+  console.log(`Меня добавили на ${guild.name} (id: ${guild.id})`);
+  bot.user.setPresence({ game: { name: `k!help | ${client.guilds.size}`, type: 0 } });
+});
+
+bot.on("guildDelete", guild => {
+  // this event triggers when the bot is removed from a guild.
+  console.log(`Меня удалили с ${guild.name} (id: ${guild.id})`);
+  bot.user.setPresence({ game: { name: `k!help | ${client.guilds.size}`, type: 0 } });
 });
 
 // Bot Login.
